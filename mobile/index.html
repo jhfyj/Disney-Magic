@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mobile Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    
+    <main>
+      <h1>Mobile Control</h1>
+      <div id="message"></div>
+    </main>
+
+    <!-- Module imports -->
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js'
+  
+      // Add Firebase products that you want to use
+      import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js'
+    </script>
+    
+
+    <script type="module">
+      import { createButton } from '../global/create_ui.js';
+      import { updateStatus, listenToStatus } from '../global/setup_dbase.js';
+
+      const recordingID = 'recording1'; // You could dynamically set this if needed
+
+      // Create the button to start recording
+      createButton('Start Recording', () => {
+        updateStatus(recordingID, 'recording').then(() => {
+          document.getElementById('message').innerText = 'Recording started...';
+        });
+      });
+
+      // Listen for any changes
+      listenToStatus(recordingID, (status) => {
+        const msg = document.getElementById('message');
+        if (status === 'recording') {
+          msg.innerText = 'Recording is in progress.';
+        } else if (status === 'done') {
+          msg.innerText = 'Recording completed!';
+        } else {
+          msg.innerText = `Status: ${status}`;
+        }
+      });
+    </script>
+    
+  </body>
+</html>

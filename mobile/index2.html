@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Scrollable Cards</title>
+  <style>
+    body {
+      font-family: 'Tilt Warp', sans-serif;
+      background: linear-gradient(180deg, #F3CC64 0%, #4F20BE 100%);
+      height: 100vh;
+      overflow-x: hidden;
+      position: relative; /* Ensures absolute elements inside body are positioned relative to it */
+      display: flex;
+      justify-content: top; /* Centers content horizontally */
+      align-items: center; /* Centers content vertically */
+      flex-direction: column; /* Stack content vertically */
+    }
+
+
+    .headline-container {
+        margin-top: 90px;
+      text-align: center;
+      padding-bottom: 30px; /* Add margin to separate headline from the cards */
+    }
+
+    .headline {
+      color: #12194A;
+      font-size: 28px;
+      text-transform: uppercase;
+      line-height: 36px;
+    }
+
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      width: 100%;
+      padding-top: 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+
+
+    .scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+        width: 240px;
+  height: 300px;
+  background: #565DD6;
+  border: 2px solid #83F387;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .card-content { 
+      background: rgba(255, 243, 211, 0.9);
+      border-radius: 28px;
+      padding: 20px 10px;
+      width: 90%;
+      height: 90%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card-header {
+      background: #757575;
+      height: 180px;
+      border-radius: 24px;
+      margin-left: 4px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      text-transform: uppercase;
+      color: black;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-family: 'Kufam', sans-serif;
+      font-size: 16px;
+      color: #3D3D3D;
+    }
+
+    
+    .card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+    /* Styling for the images at the bottom */
+    .image-container {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+    .image-background {
+  position: absolute;
+  bottom: 0;
+  left: 50%;                 /* Center the image horizontally */
+  transform: translateX(-50%); /* Adjust the position based on its width */
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;              /* Push the background image behind everything */
+}
+
+.image-background img {
+  display: block;           /* Remove inline whitespace */
+  width: 100%;              /* Scale image to container’s width */
+  height: auto;             /* Preserve aspect ratio */
+  margin: 0px;
+  z-index: -1;              /* Ensure image stays behind everything */
+}
+
+
+    .image-container img {
+      position: absolute;
+    }
+
+    .image-container img:nth-child(1) {
+      width: 44px;
+      height: 55px;
+      left: 7px;
+      top: 27px;
+    }
+
+    .image-container img:nth-child(2) {
+        /* position: absolute; */
+        width: 71px;
+        height: 90px;
+        right: 23px; /* replaces margin-right for better positioning */
+        top: 120px;
+    }
+
+    .image-container img:nth-child(3) {
+      width: 31px;
+      height: 49px;
+      right: 0px;
+      top: 78px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Kufam&family=Tilt+Warp&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="image-container">
+        <img src="/mobile/assets/star.png" />
+        <img src="/mobile/assets/star.png" />
+        <img src="/mobile/assets/star.png" />
+      </div>
+<div class="headline-container">
+    <div class="headline">What would you like to experience today?</div>
+  </div>
+  <div class="scroll-container">
+    <!-- Card 1 -->
+    <div class="card" style="border-color: #FFE32B; background: #EB2C34;">
+      <div class="card-content">
+        <div class="card-header"></div>
+          <div class="card-title">Magic Kingdom</div>
+          <div class="card-text">Anyone can have a touch of magic!</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card" style="border-color: #83F387; background: #565DD6;">
+        <div class="card-content">
+          <div class="card-header"></div>
+          <div class="card-title">Tomorrowland</div>
+          <div class="card-text">To infinity and beyond!</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card" style="border-color: #FAB7F2; background: #C015D7;">
+        <div class="card-content">
+          <div class="card-header"></div>
+          <div class="card-title">Villain</div>
+          <div class="card-text">Who’s the fairest of them all?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-background">
+    <img src="/mobile/assets/background.png" />
+  </div>
+  <script>
+    // Redirection for Card 1
+    const card1 = document.querySelectorAll('.card')[0];
+    card1.addEventListener('click', function() {
+      window.location.href = 'https://example.com/page1';  // Redirect to the specific page for Card 1
+    });
+  
+    // Redirection for Card 2
+    const card2 = document.querySelectorAll('.card')[1];
+    card2.addEventListener('click', function() {
+      window.location.href = 'https://example.com/page2';  // Redirect to the specific page for Card 2
+    });
+  
+    // Redirection for Card 3
+    const card3 = document.querySelectorAll('.card')[2];
+    card3.addEventListener('click', function() {
+      window.location.href = 'https://example.com/page3';  // Redirect to the specific page for Card 3
+    });
+  </script>
+</body>
+</html>

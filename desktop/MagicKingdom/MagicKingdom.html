@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile Control</title>
+  </head>
+  <body>
+    <main>
+      <h1>Choose an Action</h1>
+
+      <!-- Buttons linking to different pages -->
+      <!-- <div class="button-wrapper">
+        <a href="MagicKingdom/MagicKingdom.html"><button>Magic Kingdom</button></a>
+      </div> -->
+
+      <div class="button-wrapper">
+        <a href="recordings.html"><button>View Recordings</button></a>
+      </div>
+
+      <div class="button-wrapper">
+        <a href="settings.html"><button>Settings</button></a>
+      </div>
+
+      <!-- Fullscreen button -->
+      <div class="button-wrapper">
+        <button id="fullscreen-btn">Enter Fullscreen</button>
+      </div>
+    </main>
+
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
+      import { getFirestore, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
+        authDomain: "disney-magic-5072e.firebaseapp.com",
+        projectId: "disney-magic-5072e",
+        storageBucket: "disney-magic-5072e.appspot.com",
+        messagingSenderId: "95848512456",
+        appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
+        measurementId: "G-MLTNL3PQ3V"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+    
+      const recordingDocRef = doc(db, "recordings", "recording1");
+    
+      // Redirect if MagicKingdom is detected
+      onSnapshot(recordingDocRef, (docSnapshot) => {
+        const data = docSnapshot.data();
+        if (data && data.type === "MagicKingdom") {
+          console.log("Redirecting to MagicKingdom...");
+          window.location.href = "index.html";
+        }
+      });
+    
+      // Fullscreen button
+      const fsBtn = document.getElementById("fullscreen-btn");
+      fsBtn.addEventListener("click", () => {
+        const docElm = document.documentElement;
+        if (docElm.requestFullscreen) {
+          docElm.requestFullscreen();
+        } else if (docElm.webkitRequestFullscreen) {
+          docElm.webkitRequestFullscreen();
+        } else if (docElm.msRequestFullscreen) {
+          docElm.msRequestFullscreen();
+        }
+      });
+    </script>
+
+    <!-- <script src="sketch.js"></script>
+   <script src="particle.js"></script> -->
+    <script src="basic.vert"></script>
+    <script src="basic.frag"></script> 
+</body>
+</html>

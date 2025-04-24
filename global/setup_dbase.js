@@ -1,6 +1,6 @@
 // setup_dbase.js
 
-import { database, ref, set, onValue } from 'firebase/app';
+import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js';
 
 /**
  * Updates the recording status in the Firebase Realtime Database
@@ -8,12 +8,12 @@ import { database, ref, set, onValue } from 'firebase/app';
  * @param {string} status - New status to set (e.g., 'recording', 'completed')
  */
 export function updateStatus(recordingID, status) {
-  if (!recordingID || !database) {
+  if (!recordingID || !getDatabase()) {
     console.warn('Missing recordingID or Firebase not initialized');
     return;
   }
 
-  const statusRef = ref(database, `recordings/${recordingID}`);
+  const statusRef = ref(getDatabase(), `recordings/${recordingID}`);
   set(statusRef, {
     status: status,
     createdAt: Date.now(),
@@ -29,12 +29,12 @@ export function updateStatus(recordingID, status) {
  * @param {function} callback - Callback to execute when status changes
  */
 export function listenToStatus(recordingID, callback) {
-  if (!recordingID || !database) {
+  if (!recordingID || !getDatabase) {
     console.warn('Missing recordingID or Firebase not initialized');
     return;
   }
 
-  const statusRef = ref(database, `recordings/${recordingID}`);
+  const statusRef = ref(getDatabase(), `recordings/${recordingID}`);
 
   onValue(statusRef, (snapshot) => {
     const data = snapshot.val();

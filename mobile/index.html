@@ -1,52 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Mobile Controller</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    
-    <main>
-      <h1>Mobile Control</h1>
-      <div id="message"></div>
-    </main>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose a Destination</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding-top: 3rem;
+    }
 
-    <!-- Module imports -->
-    <script type="module">
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js'
-  
-      // Add Firebase products that you want to use
-      import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js'
-    </script>
-    
+    h1 {
+      margin-bottom: 2rem;
+    }
 
-    <script type="module">
-      import { createButton } from '../global/create_ui.js';
-      import { updateStatus, listenToStatus } from '../global/setup_dbase.js';
+    .button-wrapper {
+      margin-bottom: 1rem;
+    }
 
-      const recordingID = 'recording1'; // You could dynamically set this if needed
+    button {
+      padding: 1em 2em;
+      font-size: 1.2rem;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-      // Create the button to start recording
-      createButton('Start Recording', () => {
-        updateStatus(recordingID, 'recording').then(() => {
-          document.getElementById('message').innerText = 'Recording started...';
+    button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Choose Your Land</h1>
+
+    <div class="button-wrapper">
+      <button onclick="sendMessage('MagicKingdom')">Magic Kingdom</button>
+    </div>
+
+    <div class="button-wrapper">
+      <button onclick="sendMessage('TomorrowLand')">Tomorrow Land</button>
+    </div>
+
+    <div class="button-wrapper">
+      <button onclick="sendMessage('VillainsLand')">Villains Land</button>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
+    import { getFirestore, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
+      authDomain: "disney-magic-5072e.firebaseapp.com",
+      projectId: "disney-magic-5072e",
+      storageBucket: "disney-magic-5072e.appspot.com",
+      messagingSenderId: "95848512456",
+      appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
+      measurementId: "G-MLTNL3PQ3V"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.sendMessage = async function (destination) {
+      const recordingDocRef = doc(db, "recordings", "recording1");
+
+      try {
+        await updateDoc(recordingDocRef, {
+          type: destination
         });
-      });
+        console.log(`Sent: ${destination}`);
+      } catch (err) {
+        console.error("Failed to send message:", err);
+        alert("Error sending message.");
+      }
+    };
 
-      // Listen for any changes
-      listenToStatus(recordingID, (status) => {
-        const msg = document.getElementById('message');
-        if (status === 'recording') {
-          msg.innerText = 'Recording is in progress.';
-        } else if (status === 'done') {
-          msg.innerText = 'Recording completed!';
-        } else {
-          msg.innerText = `Status: ${status}`;
-        }
-      });
-    </script>
-    
-  </body>
+  </script>
+</body>
 </html>

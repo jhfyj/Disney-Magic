@@ -35,6 +35,7 @@ let videoTexture;
 
 
 function preload() {
+  theShader = loadShader('basic.vert', 'basic.frag');
   theShader = new p5.Shader(this.renderer, vertShader, fragShader);
   bodyPose = ml5.bodyPose(() => console.log("BodyPose Model Loaded"));
 }

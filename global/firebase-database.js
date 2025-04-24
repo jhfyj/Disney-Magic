@@ -1,6 +1,6 @@
 // firebase-database.js
 
-import { database, ref, set, get, child, onValue } from 'firebase/app';
+import { database, ref, set, get, child, onValue } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js';
 
 /**
  * Save a new recording entry

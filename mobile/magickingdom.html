@@ -171,42 +171,45 @@
 <body>
 
     <div class="container">
-
+        
         <img class="background-img" src="assets/starbackground.jpg" alt="Background Image">
         <img class="image" src="assets/purple.png" />
 
-        <div class="back-button" data-property-1="Villain" data-tomorrowland="Default"
-            onclick="window.location.href='homepage.html'">
-
-            <div>Back</div>
+        <div class="back-button" data-property-1="Villain" data-tomorrowland="Default" onclick="window.location.href='homepage.html'">
+          
+          <div>Back</div>
         </div>
-
-
+        
+      
         <div class="start-button-container" onclick="handleStartButtonClick()" data-property-1="Default">
-            <div id="startButton" class="start-button">
-                <div class="start-inner"></div>
-                <div id="startText" class="start-text">START</div> <!-- ✨ Added id="startText" -->
-            </div>
+          <div id="startButton" class="start-button">
+            <div class="start-inner"></div>
+            <div id="startText" class="start-text">START</div> <!-- ✨ Added id="startText" -->
+          </div>
         </div>
 
         <script>
-            function handleStartButtonClick() {
-                // 1. Send the message
-                sendMessage('MagicKingdom');
-
-
-                document.getElementById('startButton').classList.add('pressed');
-                document.getElementById('startText').textContent = 'Started!';
-                document.getElementById('startText').style.fontSize = '28px';
-            }
-
+          function handleStartButtonClick() {
+            // 1. Send the message
+            sendMessage('MagicKingdom');
+        
+            
+            document.getElementById('startButton').classList.add('pressed');
+            document.getElementById('startText').textContent = 'Started!';
+            document.getElementById('startText').style.fontSize = '28px';
+          }
+        
+          function sendMessage(land) {
+            console.log('Sending to backend:', land);
+            // You can add fetch() here to actually send data
+          }
         </script>
-
+      
         <div class="intro-text">
-            Ready to get started?<br />Press on the start button below!
+          Ready to get started?<br/>Press on the start button below!
         </div>
-
-    </div>
+        
+      </div>
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';

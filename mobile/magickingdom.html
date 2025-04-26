@@ -227,46 +227,47 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    const db = getFirestore(app);
+    const recordingDocRef = doc(db, "recordings", "recording1"); // 🌟 move this outside to reuse
 
-        window.sendMessage = async function (destination) {
-            const recordingDocRef = doc(db, "recordings", "recording1");
+    // 🟣 SETUP REALTIME LISTENER IMMEDIATELY
+    onSnapshot(recordingDocRef, (docSnapshot) => {
+        const data = docSnapshot.data();
+        if (data && data.type === "") {
+            console.log("Type is cleared, refreshing page...");
+            location.reload(); // 🔄 Refresh the page automatically
+        }
+    });
 
-            try {
-                await updateDoc(recordingDocRef, {
-                    type: destination
-                });
-                console.log(`Sent: ${destination}`);
-            } catch (err) {
-                console.error("Failed to send message:", err);
-                alert("Error sending message.");
-            }
-        };
-        window.clearTypeAndResetButton = async function () {
-            const recordingDocRef = doc(db, "recordings", "recording1");
-            onSnapshot(recordingDocRef, (docSnapshot) => {
-                const data = docSnapshot.data();
-                if (data && data.type === "") {
-                    console.log("Type is cleared, refreshing page...");
-                    location.reload(); // 🔄 Refresh the page automatically!
-                }
+    window.sendMessage = async function (destination) {
+        try {
+            await updateDoc(recordingDocRef, {
+                type: destination
             });
-            try {
-                await updateDoc(recordingDocRef, {
-                    type: ""
-                });
-                console.log("Type cleared!");
+            console.log(`Sent: ${destination}`);
+        } catch (err) {
+            console.error("Failed to send message:", err);
+            alert("Error sending message.");
+        }
+    };
 
-                // 🎯 Reset button appearance:
-                document.getElementById('startButton').classList.remove('pressed');
-                document.getElementById('startText').textContent = 'START';
-                document.getElementById('startText').style.fontSize = '36px';
+    window.clearTypeAndResetButton = async function () {
+        try {
+            await updateDoc(recordingDocRef, {
+                type: ""
+            });
+            console.log("Type cleared!");
 
-            } catch (err) {
-                console.error("Failed to clear type:", err);
-                alert("Error clearing type.");
-            }
-        };
+            // 🎯 Reset button appearance:
+            document.getElementById('startButton').classList.remove('pressed');
+            document.getElementById('startText').textContent = 'START';
+            document.getElementById('startText').style.fontSize = '36px';
+
+        } catch (err) {
+            console.error("Failed to clear type:", err);
+            alert("Error clearing type.");
+        }
+    };
 
     </script>
 </body>

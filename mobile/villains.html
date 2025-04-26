@@ -210,7 +210,7 @@
         const db = getFirestore(app);
     
         window.sendMessage = async function (destination) {
-          const recordingDocRef = doc(db, "type", "type1");
+          const recordingDocRef = doc(db, "recordings", "recording1");
     
           try {
             await updateDoc(recordingDocRef, {

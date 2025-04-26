@@ -244,7 +244,13 @@
         };
         window.clearTypeAndResetButton = async function () {
             const recordingDocRef = doc(db, "recordings", "recording1");
-
+            onSnapshot(recordingDocRef, (docSnapshot) => {
+                const data = docSnapshot.data();
+                if (data && data.type === "") {
+                    console.log("Type is cleared, refreshing page...");
+                    location.reload(); // 🔄 Refresh the page automatically!
+                }
+            });
             try {
                 await updateDoc(recordingDocRef, {
                     type: ""

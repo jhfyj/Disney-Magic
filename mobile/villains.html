@@ -107,12 +107,12 @@
   transition: all 0.3s ease; /* ✨ Smooth animation */
 }
 
-.start-button:hover {
+.start-button.pressed {
   transform: translateY(10px); /* ⬇️ Move down 10px on hover */
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.30); /* Remove shadow if you want */
 }
 
-    .start-inner {
+ .start-inner {
       width: 140px;
       height: 140px;
       background: #F3CC64;
@@ -127,6 +127,7 @@
       font-size: 36px;
       font-weight: 400;
       word-wrap: break-word;
+      
     }
 
     .intro-text {
@@ -156,16 +157,34 @@
         <img class="image" src="assets/purple.png" />
 
         <div class="back-button" data-property-1="Villain" data-tomorrowland="Default" onclick="window.location.href='homepage.html'">
+          
           <div>Back</div>
         </div>
         
       
-        <div class="start-button-container" data-property-1="Default">
-          <div class="start-button">
+        <div class="start-button-container" onclick="handleStartButtonClick()" data-property-1="Default">
+          <div id="startButton" class="start-button">
             <div class="start-inner"></div>
-            <div class="start-text">START</div>
+            <div id="startText" class="start-text">START</div> <!-- ✨ Added id="startText" -->
           </div>
         </div>
+
+        <script>
+          function handleStartButtonClick() {
+            // 1. Send the message
+            sendMessage('VillainsLand');
+        
+            
+            document.getElementById('startButton').classList.add('pressed');
+            document.getElementById('startText').textContent = 'Started!';
+            document.getElementById('startText').style.fontSize = '28px';
+          }
+        
+          function sendMessage(land) {
+            console.log('Sending to backend:', land);
+            // You can add fetch() here to actually send data
+          }
+        </script>
       
         <div class="intro-text">
           Ready to get started?<br/>Press on the start button below!

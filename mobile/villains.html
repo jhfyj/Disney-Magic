@@ -55,12 +55,18 @@
       left: 23px;
       top: 28px;
       position: absolute;
-      background: var(--Purple);
+      background: #F397FF;
       border-radius: 57px;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
+    }
+
+    .back-button:hover {
+      background: #F3CC64;
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.30);
+
     }
 
     .back-button div {
@@ -72,7 +78,7 @@
 
     .start-button-container {
       padding: 10px;
-      bottom: 200px;
+      bottom: 12%;
       left: 50%;  /* Horizontally centers the container */
       transform: translate(-50%, 0); /* Corrects the position to perfectly center */
       top: 453px;
@@ -84,8 +90,8 @@
     }
 
     .start-button {
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       padding: 26px;
       position: relative;
       background: linear-gradient(0deg, #C79A20 0%, #C79A20 100%), #F3CC64;
@@ -98,26 +104,26 @@
     }
 
     .start-inner {
-      width: 180px;
-      height: 180px;
+      width: 140px;
+      height: 140px;
       background: #F3CC64;
       border-radius: 9999px;
     }
 
     .start-text {
-        justify-content: center;
-        align-items: center;
+    justify-content: center;
+    align-items: center;
       position: absolute;
       color: black;
-      font-size: 48px;
+      font-size: 36px;
       font-weight: 400;
       word-wrap: break-word;
     }
 
     .intro-text {
       width: 250px;
-      height: 70px;
-      padding-bottom: 120px;
+      height: 0px;
+      padding-bottom: 30px;
       position: absolute;
       text-align: center;
       color: white;
@@ -140,9 +146,10 @@
         <img class="background-img" src="assets/starbackground.jpg" alt="Background Image">
         <img class="image" src="assets/purple.png" />
 
-        <div class="back-button" data-property-1="Villain" data-tomorrowland="Default">
+        <div class="back-button" data-property-1="Villain" data-tomorrowland="Default" onclick="window.location.href='homepage.html'">
           <div>Back</div>
         </div>
+        
       
         <div class="start-button-container" data-property-1="Default">
           <div class="start-button">

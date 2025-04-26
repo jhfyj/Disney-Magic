@@ -207,6 +207,7 @@
     
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const recordingDocRef = doc(db, "recordings", "recording1");
     
         window.sendMessage = async function (destination) {
           const recordingDocRef = doc(db, "recordings", "recording1");
@@ -220,6 +221,24 @@
             console.error("Failed to send message:", err);
             alert("Error sending message.");
           }
+        };
+
+        window.clearTypeAndResetButton = async function () {
+            try {
+                await updateDoc(recordingDocRef, {
+                    type: ""
+                });
+                console.log("Type cleared!");
+
+                // 🎯 Reset button appearance:
+                document.getElementById('startButton').classList.remove('pressed');
+                document.getElementById('startText').textContent = 'START';
+                document.getElementById('startText').style.fontSize = '36px';
+
+            } catch (err) {
+                console.error("Failed to clear type:", err);
+                alert("Error clearing type.");
+            }
         };
     
       </script>

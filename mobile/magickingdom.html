@@ -1,229 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Design</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --LightBlue: #393E8F;
+            --Purple: #C015D7;
+        }
 
-    
-    :root {
-      --LightBlue: #393E8F;
-      --Purple: #C015D7;
-    }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Tilt Warp', sans-serif;
+        }
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Tilt Warp', sans-serif;
-    }
+        .image {
+            display: block;
+            /* Remove inline whitespace */
+            width: 100%;
+            height: auto;
+            /* Preserve aspect ratio */
+            margin: 0px;
+            position: absolute;
+            /* Position the image relative to the container */
+            bottom: 0;
+            /* Stick the image to the bottom */
+        }
 
-    .image {
-    display: block;            /* Remove inline whitespace */
-    width: 100%;              
-    height: auto;              /* Preserve aspect ratio */
-    margin: 0px;
-    position: absolute;        /* Position the image relative to the container */
-    bottom: 0;                 /* Stick the image to the bottom */
-}
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            /* This allows other elements inside to be positioned correctly */
+            background: var(--LightBlue);
+            overflow: hidden;
+            /* Hide any overflow from child elements */
+        }
 
-.container {
-    width: 100%;
-    height: 100%;
-    position: relative;        /* This allows other elements inside to be positioned correctly */
-    background: var(--LightBlue);
-    overflow: hidden;          /* Hide any overflow from child elements */
-}
+        .background-img {
+            position: absolute;
+            /* Position the background image relative to the container */
+            /* Align to the left */
+            width: 100%;
+            /* Stretch to full width of the viewport */
+            height: 100%;
+            /* Stretch to full height of the viewport */
+            /* Ensure the image covers the area without distortion */
 
-.background-img {
-    position: absolute;        /* Position the background image relative to the container */                 /* Align to the left */
-    width: 100%;               /* Stretch to full width of the viewport */
-    height: 100%;              /* Stretch to full height of the viewport */
-       /* Ensure the image covers the area without distortion */
+        }
 
-}
+        .back-button {
+            width: 68px;
+            height: 29px;
+            padding-left: 43px;
+            padding-right: 43px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            left: 23px;
+            top: 28px;
+            position: absolute;
+            background: #F397FF;
+            border-radius: 57px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .back-button {
-      width: 68px;
-      height: 29px;
-      padding-left: 43px;
-      padding-right: 43px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      left: 23px;
-      top: 28px;
-      position: absolute;
-      background: #F397FF;
-      border-radius: 57px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
+        .back-button:hover {
+            background: #F3CC64;
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.30);
+            transition: all 0.2s ease;
+            /* ✨ Smooth animation */
 
-    .back-button:hover {
-      background: #F3CC64;
-      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.30);
-      transition: all 0.2s ease; /* ✨ Smooth animation */
+        }
 
-    }
+        .back-button div {
+            color: black;
+            font-size: 20px;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
 
-    .back-button div {
-      color: black;
-      font-size: 20px;
-      font-weight: 400;
-      word-wrap: break-word;
-    }
-
-    .start-button-container {
-      padding: 10px;
-      bottom: 12%;
-      left: 50%;  /* Horizontally centers the container */
-      transform: translate(-50%, 0); /* Corrects the position to perfectly center */
-      top: 453px;
-      position: absolute;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
+        .start-button-container {
+            padding: 10px;
+            bottom: 12%;
+            left: 50%;
+            /* Horizontally centers the container */
+            transform: translate(-50%, 0);
+            /* Corrects the position to perfectly center */
+            top: 453px;
+            position: absolute;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
 
 
-    .start-button {
-  width: 150px;
-  height: 150px;
-  padding: 26px;
-  position: relative;
-  background: linear-gradient(0deg, #C79A20 0%, #C79A20 100%), #F3CC64;
-  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.30);
-  border-radius: 160.50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease; /* ✨ Smooth animation */
-}
 
-.start-button.pressed {
-  transform: translateY(10px); /* ⬇️ Move down 10px on hover */
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.30); /* Remove shadow if you want */
-}
+        .start-button {
+            width: 150px;
+            height: 150px;
+            padding: 26px;
+            position: relative;
+            background: linear-gradient(0deg, #C79A20 0%, #C79A20 100%), #F3CC64;
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.30);
+            border-radius: 160.50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            /* ✨ Smooth animation */
+        }
 
- .start-inner {
-      width: 140px;
-      height: 140px;
-      background: #F3CC64;
-      border-radius: 9999px;
-    }
+        .start-button.pressed {
+            transform: translateY(10px);
+            /* ⬇️ Move down 10px on hover */
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.30);
+            /* Remove shadow if you want */
+        }
 
-    .start-text {
-    justify-content: center;
-    align-items: center;
-      position: absolute;
-      color: black;
-      font-size: 36px;
-      font-weight: 400;
-      word-wrap: break-word;
-      
-    }
+        .start-inner {
+            width: 140px;
+            height: 140px;
+            background: #F3CC64;
+            border-radius: 9999px;
+        }
 
-    .intro-text {
-      width: 250px;
-      height: 0px;
-      padding-bottom: 30px;
-      position: absolute;
-      text-align: center;
-      color: white;
-      font-size: 20px;
-      font-weight: 400;
-      text-transform: uppercase;
-      word-wrap: break-word;
-      left: 50%;  /* Horizontally centers the container */
-      top: 50%;  /* Horizontally centers the container */
-      transform: translate(-50%, -50%); /* Corrects the position to perfectly center */
+        .start-text {
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            color: black;
+            font-size: 36px;
+            font-weight: 400;
+            word-wrap: break-word;
 
-    }
-  </style>
+        }
+
+        .intro-text {
+            width: 250px;
+            height: 0px;
+            padding-bottom: 30px;
+            position: absolute;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 400;
+            text-transform: uppercase;
+            word-wrap: break-word;
+            left: 50%;
+            /* Horizontally centers the container */
+            top: 50%;
+            /* Horizontally centers the container */
+            transform: translate(-50%, -50%);
+            /* Corrects the position to perfectly center */
+
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container">
-        
+
         <img class="background-img" src="assets/starbackground.jpg" alt="Background Image">
         <img class="image" src="assets/purple.png" />
 
-        <div class="back-button" data-property-1="Villain" data-tomorrowland="Default" onclick="window.location.href='homepage.html'">
-          
-          <div>Back</div>
+        <div class="back-button" data-property-1="Villain" data-tomorrowland="Default"
+            onclick="window.location.href='homepage.html'">
+
+            <div>Back</div>
         </div>
-        
-      
+
+
         <div class="start-button-container" onclick="handleStartButtonClick()" data-property-1="Default">
-          <div id="startButton" class="start-button">
-            <div class="start-inner"></div>
-            <div id="startText" class="start-text">START</div> <!-- ✨ Added id="startText" -->
-          </div>
+            <div id="startButton" class="start-button">
+                <div class="start-inner"></div>
+                <div id="startText" class="start-text">START</div> <!-- ✨ Added id="startText" -->
+            </div>
         </div>
 
         <script>
-          function handleStartButtonClick() {
-            // 1. Send the message
-            sendMessage('MagicKingdom');
-        
-            
-            document.getElementById('startButton').classList.add('pressed');
-            document.getElementById('startText').textContent = 'Started!';
-            document.getElementById('startText').style.fontSize = '28px';
-          }
-        
-          function sendMessage(land) {
-            console.log('Sending to backend:', land);
-            // You can add fetch() here to actually send data
-          }
+            function handleStartButtonClick() {
+                // 1. Send the message
+                sendMessage('MagicKingdom');
+
+
+                document.getElementById('startButton').classList.add('pressed');
+                document.getElementById('startText').textContent = 'Started!';
+                document.getElementById('startText').style.fontSize = '28px';
+            }
+
+            function sendMessage(land) {
+                console.log('Sending to backend:', land);
+                // You can add fetch() here to actually send data
+            }
         </script>
-      
+
         <div class="intro-text">
-          Ready to get started?<br/>Press on the start button below!
+            Ready to get started?<br />Press on the start button below!
         </div>
-        
-      </div>
-      
-      <script type="module">
+
+    </div>
+
+    <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
         import { getFirestore, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
-    
+
         const firebaseConfig = {
-          apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
-          authDomain: "disney-magic-5072e.firebaseapp.com",
-          projectId: "disney-magic-5072e",
-          storageBucket: "disney-magic-5072e.appspot.com",
-          messagingSenderId: "95848512456",
-          appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
-          measurementId: "G-MLTNL3PQ3V"
+            apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
+            authDomain: "disney-magic-5072e.firebaseapp.com",
+            projectId: "disney-magic-5072e",
+            storageBucket: "disney-magic-5072e.appspot.com",
+            messagingSenderId: "95848512456",
+            appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
+            measurementId: "G-MLTNL3PQ3V"
         };
-    
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-    
+
         window.sendMessage = async function (destination) {
-          const recordingDocRef = doc(db, "recordings", "recording1");
-    
-          try {
-            await updateDoc(recordingDocRef, {
-              type: destination
-            });
-            console.log(`Sent: ${destination}`);
-          } catch (err) {
-            console.error("Failed to send message:", err);
-            alert("Error sending message.");
-          }
+            const recordingDocRef = doc(db, "recordings", "recording1");
+
+            try {
+                await updateDoc(recordingDocRef, {
+                    type: destination
+                });
+                console.log(`Sent: ${destination}`);
+            } catch (err) {
+                console.error("Failed to send message:", err);
+                alert("Error sending message.");
+            }
         };
-    
-      </script>
+        window.clearTypeAndResetButton = async function () {
+            const recordingDocRef = doc(db, "recordings", "recording1");
+
+            try {
+                await updateDoc(recordingDocRef, {
+                    type: ""
+                });
+                console.log("Type cleared!");
+
+                // 🎯 Reset button appearance:
+                document.getElementById('startButton').classList.remove('pressed');
+                document.getElementById('startText').textContent = 'START';
+                document.getElementById('startText').style.fontSize = '36px';
+
+            } catch (err) {
+                console.error("Failed to clear type:", err);
+                alert("Error clearing type.");
+            }
+        };
+
+    </script>
 </body>
 
 </html>

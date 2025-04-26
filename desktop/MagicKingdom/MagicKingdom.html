@@ -1,50 +1,84 @@
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
-      <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="../style.css">
-    <meta charset="utf-8" />
 
-  </head>
-  <body>
-    <main>
-    </main>
-      <!-- <script type="module" src="../global/firebase-config.js"></script>
-      <script src="../global/a_my_setup.js"></script>
-      <script src="../global/create_ui.js"></script>
-      <script src="../global/photo.js"></script>
-      <script src="../global/setup_dbase.js"></script> -->
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <meta charset="utf-8" />
+  <style>
+    #countdown {
+      font-size: 36px;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-weight: bold;
+      z-index: 1000;
+      /* Ensures it stays on top of other elements */
+    }
+  </style>
+</head>
 
-      <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js'
-        // Add Firebase products that you want to use
-        import { getFirestore, doc, getDoc, onSnapshot, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js'
-    
-        // ...
-    
-        // TODO: Replace the following with your app's Firebase project configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
-          authDomain: "disney-magic-5072e.firebaseapp.com",
-          projectId: "disney-magic-5072e",
-          storageBucket: "disney-magic-5072e.firebasestorage.app",
-          messagingSenderId: "95848512456",
-          appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
-          measurementId: "G-MLTNL3PQ3V"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-    
-        const recordingDocRef = doc(db, "recordings", "recording1");
-        const recordingDoc = await getDoc(recordingDocRef);
-    
-      </script>
-    <script src="sketch.js"></script>
-    <script src="particle.js"></script>
-    <script src="basic.vert"></script>
-    <script src="basic.frag"></script>
-  </body>
+<body>
+  <main>
+    <div id="countdown">30</div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js'
+    // Add Firebase products that you want to use
+    import { getFirestore, doc, getDoc, onSnapshot, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js'
+
+    // ...
+
+    // TODO: Replace the following with your app's Firebase project configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
+      authDomain: "disney-magic-5072e.firebaseapp.com",
+      projectId: "disney-magic-5072e",
+      storageBucket: "disney-magic-5072e.firebasestorage.app",
+      messagingSenderId: "95848512456",
+      appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
+      measurementId: "G-MLTNL3PQ3V"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const recordingDocRef = doc(db, "recordings", "recording1");
+    const recordingDoc = await getDoc(recordingDocRef);
+
+    let countdown = 30; // Set initial countdown value to 30 seconds
+    const countdownDisplay = document.getElementById('countdown');
+
+    // Update the countdown every second
+    const countdownInterval = setInterval(() => {
+      countdownDisplay.textContent = countdown; // Update the displayed countdown
+      countdown--;
+
+      if (countdown < 0) {
+        clearInterval(countdownInterval); // Clear the interval once the countdown reaches 0
+        updateDoc(recordingDocRef, {
+          type: ""
+        })
+          .then(() => {
+            console.log("Cleared type field!");
+            window.location.href = "../index.html";
+          })
+          .catch((err) => {
+            console.error("Failed to clear field:", err);
+            alert("Error clearing field.");
+          });
+      }
+    }, 1000); // Run every second (1000ms)
+
+  </script>
+  <script src="sketch.js"></script>
+  <script src="particle.js"></script>
+  <script src="basic.vert"></script>
+  <script src="basic.frag"></script>
+</body>
+
 </html>

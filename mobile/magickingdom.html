@@ -238,16 +238,19 @@
         });
 
         window.sendMessage = async function (destination) {
-            try {
-                await updateDoc(recordingDocRef, {
-                    type: destination
-                });
-                console.log(`Sent: ${destination}`);
-            } catch (err) {
-                console.error("Failed to send message:", err);
-                alert("Error sending message.");
-            }
+          const recordingDocRef = doc(db, "recordings", "recording1");
+    
+          try {
+            await updateDoc(recordingDocRef, {
+              type: destination
+            });
+            console.log(`Sent: ${destination}`);
+          } catch (err) {
+            console.error("Failed to send message:", err);
+            alert("Error sending message.");
+          }
         };
+    
 
         window.clearTypeAndResetButton = async function () {
             try {

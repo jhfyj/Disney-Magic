@@ -337,32 +337,6 @@
             }
         };
 
-        // Listen to updates and refresh if 'type' is cleared
-        onSnapshot(recordingDocRef, (docSnapshot) => {
-            const data = docSnapshot.data();
-            if (data && data.type === "") {
-                console.log("Type is cleared, refreshing page...");
-                location.reload();
-            }
-        });
-
-        window.clearTypeAndResetButton = async function () {
-            try {
-                await updateDoc(recordingDocRef, {
-                    type: ""
-                });
-                console.log("Type cleared!");
-
-                // 🎯 Reset button appearance
-                document.getElementById('startButton').classList.remove('pressed');
-                document.getElementById('startText').textContent = 'START';
-                document.getElementById('startText').style.fontSize = '36px';
-            } catch (err) {
-                console.error("Failed to clear type:", err);
-                alert("Error clearing type.");
-            }
-        };
-
         // Popup logic
         window.openSessionPopup = function () {
             document.getElementById('popup').style.display = 'flex'; // 🧡 show popup nicely

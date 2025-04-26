@@ -63,7 +63,7 @@
             left: 23px;
             top: 28px;
             position: absolute;
-            background: #F397FF;
+            background: #FF6767;
             border-radius: 57px;
             display: inline-flex;
             justify-content: center;
@@ -179,7 +179,7 @@
             padding-left: 40px;
             padding-right: 40px;
             box-sizing: border-box;
-            
+
         }
 
 
@@ -190,6 +190,7 @@
             border-radius: 20px;
             text-align: center;
             position: relative;
+
         }
 
         /* Message Text */
@@ -231,7 +232,7 @@
     <div class="container">
 
         <img class="background-img" src="assets/starbackground.jpg" alt="Background Image">
-        <img class="image" src="assets/purple.png" />
+        <img class="image" src="assets/red.png" />
 
         <div class="back-button" data-property-1="Villain" data-tomorrowland="Default"
             onclick="window.location.href='homepage.html'">
@@ -309,6 +310,9 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const recordingDocRef = doc(db, "recordings", "recording1");
+        let isButtonClicked = false;  // Flag to track if the button was clicked
+
+
 
         window.handleStartButtonClick = async function () {
             try {
@@ -324,12 +328,21 @@
                     await updateDoc(recordingDocRef, {
                         type: 'MagicKingdom'
                     });
+                    await updateDoc(recordingDocRef, {
+                        status: "started"
+                    });
                     console.log(`Sent: MagicKingdom`);
 
                     // 🎯 Update button appearance
                     document.getElementById('startButton').classList.add('pressed');
                     document.getElementById('startText').textContent = 'Started!';
                     document.getElementById('startText').style.fontSize = '28px';
+
+                    // Set isButtonClicked to true
+                    isButtonClicked = true;
+
+                    // Check if the status is done and the button has been clicked
+                    checkSessionStatus();
                 }
             } catch (err) {
                 console.error("Failed to check or send message:", err);
@@ -337,6 +350,28 @@
             }
         };
 
+        function checkSessionStatus() {
+            // Polling function or Firestore listener to check status
+            setInterval(async function () {
+                if (isButtonClicked) {
+                    try {
+                        const snapshot = await getDoc(recordingDocRef);
+                        const data = snapshot.data();
+
+                        if (data && data.status === "done") {
+                            // Redirect to another page if status is done
+                            window.location.href = "/thankyou.html";  // Change to the target URL
+                            isButtonClicked = false;
+                        }
+                    } catch (err) {
+                        console.error("Failed to fetch session status:", err);
+                    }
+                }
+            }, 2000);  // Check every 2 seconds
+        }
+
+
+        // Listen to updates and refresh if 'type' is cleared
         // Popup logic
         window.openSessionPopup = function () {
             document.getElementById('popup').style.display = 'flex'; // 🧡 show popup nicely

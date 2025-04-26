@@ -63,9 +63,13 @@
         updateDoc(recordingDocRef, {
           type: ""
         })
+        updateDoc(recordingDocRef, {
+          status: "done"
+        })
           .then(() => {
             console.log("Cleared type field!");
             window.location.href = "../index.html";
+            sendMessage('VillainsLand');
           })
           .catch((err) => {
             console.error("Failed to clear field:", err);

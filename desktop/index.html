@@ -1,82 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" type="text/css" href="../style.css" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mobile Control</title>
-  </head>
-  <body>
-    <main>
-      <h1>Choose an Action</h1>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Control</title>
+</head>
 
-      <!-- Buttons linking to different pages -->
-      <!-- <div class="button-wrapper">
-        <a href="MagicKingdom/MagicKingdom.html"><button>Magic Kingdom</button></a>
-      </div> -->
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-      <div class="button-wrapper">
-        <a href="recordings.html"><button>View Recordings</button></a>
-      </div>
+  .container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: white;
+    overflow: hidden;
 
-      <div class="button-wrapper">
-        <a href="settings.html"><button>Settings</button></a>
-      </div>
+  }
 
-      <!-- Fullscreen button -->
-      <div class="button-wrapper">
-        <button id="fullscreen-btn">Enter Fullscreen</button>
-      </div>
-    </main>
+  .background-image {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
 
-    <script type="module">
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
-      import { getFirestore, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
-    
-      const firebaseConfig = {
-        apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
-        authDomain: "disney-magic-5072e.firebaseapp.com",
-        projectId: "disney-magic-5072e",
-        storageBucket: "disney-magic-5072e.appspot.com",
-        messagingSenderId: "95848512456",
-        appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
-        measurementId: "G-MLTNL3PQ3V"
-      };
-    
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-    
-      const recordingDocRef = doc(db, "recordings", "recording1");
-    
-      // Redirect if MagicKingdom is detected
-      onSnapshot(recordingDocRef, (docSnapshot) => {
-        const data = docSnapshot.data();
-        if (data && data.type === "MagicKingdom") {
-          console.log("Redirecting to MagicKingdom...");
-          window.location.href = "magicKingdom/MagicKingdom.html";
-        }
+  }
 
-        if (data && data.type === "tomorrowland") {
-          window.location.href = "Tomorrowland/MagicKingdom.html";
-        }
+  .text-container {
+    width: 620px;
+    height: 200px;
+    /* padding: 20px; */
+    position: absolute;
+    left: 395px;
+    top: 226px;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-        if (data && data.type === "VillainsLand") {
-          window.location.href = "VillainsLand/MagicKingdom.html";
-        }
-      });
-    
-      // Fullscreen button
-      const fsBtn = document.getElementById("fullscreen-btn");
-      fsBtn.addEventListener("click", () => {
-        const docElm = document.documentElement;
-        if (docElm.requestFullscreen) {
-          docElm.requestFullscreen();
-        } else if (docElm.webkitRequestFullscreen) {
-          docElm.webkitRequestFullscreen();
-        } else if (docElm.msRequestFullscreen) {
-          docElm.msRequestFullscreen();
-        }
-      });
-    </script> 
+  .glass-box {
+    width: 620px;
+    height: 190px;
+    background: rgba(212, 212, 212, 0.1);
+    border-radius: 15px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(17.5px);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .text {
+    width: 598px;
+    text-align: center;
+    color: white;
+    font-size: 34px;
+    font-family: 'Montagu Slab', serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    z-index: 1;
+    margin: auto;
+  }
+
+  .qr-code {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    left: 555px;
+    bottom: 100px;
+    border-radius: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img class="background-image" src="castle.jpg" alt="Background" />
+  
+  <div class="text-container">
+    <div class="glass-box"></div>
+    <div class="text">
+      Scan the QR Code below to begin your adventure!
+    </div>
+  </div>
+
+  <img class="qr-code" src="qrcode.png" alt="QR Code" />
+</div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
+    import { getFirestore, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBpbx3ReG_6SGEHFG6qle964h6P7THBVkM",
+      authDomain: "disney-magic-5072e.firebaseapp.com",
+      projectId: "disney-magic-5072e",
+      storageBucket: "disney-magic-5072e.appspot.com",
+      messagingSenderId: "95848512456",
+      appId: "1:95848512456:web:c9f7c62ba224cbddf51efd",
+      measurementId: "G-MLTNL3PQ3V"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const recordingDocRef = doc(db, "recordings", "recording1");
+
+    // Redirect if MagicKingdom is detected
+    onSnapshot(recordingDocRef, (docSnapshot) => {
+      const data = docSnapshot.data();
+      if (data && data.type === "MagicKingdom") {
+        console.log("Redirecting to MagicKingdom...");
+        window.location.href = "magicKingdom/MagicKingdom.html";
+      }
+
+      if (data && data.type === "tomorrowland") {
+        window.location.href = "Tomorrowland/MagicKingdom.html";
+      }
+
+      if (data && data.type === "VillainsLand") {
+        window.location.href = "VillainsLand/MagicKingdom.html";
+      }
+    });
+
+    // Fullscreen button
+    const fsBtn = document.getElementById("fullscreen-btn");
+    fsBtn.addEventListener("click", () => {
+      const docElm = document.documentElement;
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      } else if (docElm.webkitRequestFullscreen) {
+        docElm.webkitRequestFullscreen();
+      } else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+      }
+    });
+  </script>
 </body>
+
 </html>

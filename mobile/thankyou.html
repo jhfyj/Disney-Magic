@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You Screen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kufam&family=Tilt+Warp&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+        font-family: 'Tilt Warp', sans-serif;
+      font-family: 'Tilt Warp', sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #F3CC64;
+      overflow: hidden;
+      font-family: 'Tilt Warp', 'Teko', sans-serif;
+    }
+    .top-row, .bottom-row {
+      position: absolute;
+      display: inline-flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .top-row {
+      top: 0px;
+      width: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .bottom-row {
+      bottom: 0px;
+      width: 100%;
+    }
+    .image-box {
+      width: 100%;
+      height: 100%;
+      padding: 0 9px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .red {
+      background: #FF6767;
+    }
+    .blue {
+      background: #7D85FD;
+    }
+    .purple {
+      background: #C015D7;
+    }
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .center-content {
+        
+      width: 346px;
+      position: absolute;
+      top: 235px;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 19px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .center-content h1 {
+        
+      align-self: stretch;
+      text-align: center;
+      color: black;
+      font-size: 36px;
+      font-weight: 400;
+      word-wrap: break-word;
+      margin: 0;
+    }
+    .center-content p {
+    font-family: 'Kufam', sans-serif;
+      width: 272px;
+      text-align: center;
+      color: #12194A;
+      font-size: 18px;
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 24px;
+      word-wrap: break-word;
+      margin: 0;
+    }
+    .home-button-container {
+      padding: 10px;
+      /* bottom: 12%; */
+      left: 50%;
+      transform: translate(-50%, 0);
+      top: 220px;
+      position: absolute;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .home-button {
+      width: 150px;
+      height: 150px;
+      padding: 26px;
+      position: relative;
+      background: linear-gradient(0deg, #C79A20 0%, #C79A20 100%), #F3CC64;
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.30);
+      border-radius: 160.50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .home-button.pressed {
+      transform: translateY(10px);
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.30);
+    }
+    .home-inner {
+      width: 140px;
+      height: 140px;
+      background: #F3CC64;
+      border-radius: 9999px;
+      position: absolute;
+    }
+    .home-text {
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      color: black;
+      font-size: 36px;
+      font-weight: 400;
+      word-wrap: break-word;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-row">
+      <div class="image-box red"><img src="assets/star.png" alt=""></div>
+      <div class="image-box blue"><img src="assets/star.png" alt=""></div>
+      <div class="image-box purple"><img src="assets/star.png" alt=""></div>
+      <div class="image-box red"><img src="assets/star.png" alt=""></div>
+      <div class="image-box blue"><img src="assets/star.png" alt=""></div>
+      <div class="image-box purple"><img src="assets/star.png" alt=""></div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="image-box red"><img src="assets/star.png" alt=""></div>
+      <div class="image-box blue"><img src="assets/star.png" alt=""></div>
+      <div class="image-box purple"><img src="assets/star.png" alt=""></div>
+      <div class="image-box red"><img src="assets/star.png" alt=""></div>
+      <div class="image-box blue"><img src="assets/star.png" alt=""></div>
+      <div class="image-box purple"><img src="assets/star.png" alt=""></div>
+    </div>
+
+    <div class="center-content">
+      <h1>Thank you for participating!</h1>
+      <p>Return to the homescreen to play again or try a new experience!</p>
+      <div class="home-button-container">
+        <div class="home-button" 
+             onclick="goHome()" 
+             onmousedown="pressButton(this)" 
+             onmouseup="releaseButton(this)" 
+             ontouchstart="pressButton(this)" 
+             ontouchend="releaseButton(this)">
+          <div class="home-inner"></div>
+          <div class="home-text">HOME</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goHome() {
+      window.location.href = "homepage.html"; // 👉 Change this URL if needed
+    }
+
+    function pressButton(button) {
+      button.classList.add('pressed');
+    }
+
+    function releaseButton(button) {
+      button.classList.remove('pressed');
+    }
+  </script>
+</body>
+</html>

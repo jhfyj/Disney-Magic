@@ -1,11 +1,7 @@
-<html lang="en">
+<html>
 
 <head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
-  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../style.css">
-  <meta charset="utf-8" />
+  <meta charset="UTF-8">
   <style>
     #countdown {
       font-size: 36px;
@@ -18,13 +14,19 @@
       /* Ensures it stays on top of other elements */
     }
   </style>
+  <title>PoseNet example using p5.js</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+  
 </head>
 
 <body>
   <main>
     <div id="countdown">30</div>
   </main>
-
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js'
     // Add Firebase products that you want to use
@@ -66,23 +68,19 @@
         updateDoc(recordingDocRef, {
           status: "done"
         })
-
           .then(() => {
             console.log("Cleared type field!");
             window.location.href = "../index.html";
+            sendMessage('VillainsLand');
           })
           .catch((err) => {
             console.error("Failed to clear field:", err);
-            alert("Error clearing field.");
           });
       }
     }, 1000); // Run every second (1000ms)
 
   </script>
   <script src="sketch.js"></script>
-  <script src="particle.js"></script>
-  <script src="basic.vert"></script>
-  <script src="basic.frag"></script>
 </body>
 
 </html>

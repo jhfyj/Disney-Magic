@@ -20,7 +20,7 @@ let handLasers = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   video = createCapture(VIDEO);
-  video.size(windowWidth, windowHeight);
+  video.size(windowWidth, windowWidth*2/3);
   // Create a new poseNet method with a single detection
   poseNet = ml5.poseNet(video, {outputStride:8, quantBytes:4});
   // This sets up an event that fills the global variable "poses"
@@ -78,7 +78,7 @@ function mousePressed(){
 function draw() {
   translate(video.width, 0);
   scale(-1,1)
-  image(video, 0, 0, width, height);
+  image(video, 0, 0, windowWidth, windowWidth*2/3);
   strokeWeight(2);
   
   background(0, 0, 250, 120); 
